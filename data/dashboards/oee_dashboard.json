@@ -1,0 +1,19 @@
+{
+  "dashboard": {
+    "title": "OEE Mediseal",
+    "panels": [
+      {
+        "title": "Blistera OEE",
+        "type": "timeseries"
+      },
+      {
+        "title": "Estuchadora OEE",
+        "type": "timeseries"
+      },
+      {
+        "title": "OEE Global",
+        "type": "timeseries"
+      }
+    ]
+  }
+}

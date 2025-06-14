@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+  api:
+    build: .
+    container_name: oee_api
+    volumes:
+      - ./:/app
+    command: uvicorn backend.main:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    env_file:
+      - ../.env
+    depends_on:
+      - influxdb
+
+  influxdb:
+    image: influxdb:2.7
+    container_name: oee_influx
+    ports:
+      - "8086:8086"
+    volumes:
+      - influxdb:/var/lib/influxdb2
+    environment:
+      - INFLUXD_HTTP_BIND_ADDRESS=:8086
+  
+  grafana:
+    image: grafana/grafana:9.5.1
+    container_name: oee_grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana:/var/lib/grafana
+    env_file:
+      - ../.env
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+    depends_on:
+      - influxdb
+
+volumes:
+  influxdb:
+  grafana:
