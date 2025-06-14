@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+SQLAlchemy
+passlib[bcrypt]
+python-jose
+jinja2
+python-dotenv
+influxdb-client
